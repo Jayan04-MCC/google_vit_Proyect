@@ -1,0 +1,69 @@
+Plan de trabajo 7 días — Forward ViT en C++ con librería propia
+Día 1 — Preparación y diseño general
+Estudia a fondo la arquitectura ViT y sus componentes clave (patch embedding, atención, MLP, normalización, etc.).
+
+Define la estructura de clases que implementarás (ej.: ImageProcessor, PatchEmbedding, MultiHeadAttention, TransformerBlock, LayerNorm, ClassificationHead, ViTModel).
+
+Familiarízate con tu librería de matrices: revisa cómo hacer multiplicaciones, sumas, traspuestas, reshape, etc.
+
+Prepara un repositorio y un esquema de carpetas para organizar el código.
+
+Día 2 — Preprocesamiento de imagen y patch embedding
+Implementa el módulo para convertir la imagen en parches (split en bloques 16x16).
+
+Implementa la función para aplanar y proyectar cada parche a un vector embedding (multiplicación con matriz de pesos + bias).
+
+Carga los pesos patch_embeddings_projection_weight y bias desde CSV.
+
+Prueba que puedas transformar una imagen dummy a un tensor embedding.
+
+Día 3 — Embeddings posicionales y token CLS
+Implementa la suma de embeddings posicionales y la concatenación del token [CLS].
+
+Carga desde CSV cls_token y position_embeddings.
+
+Confirma que la salida tenga la forma correcta: [batch_size, num_patches+1, embedding_dim].
+
+Crea pruebas unitarias básicas para esta etapa.
+
+Día 4 — Implementación de Multi-Head Self-Attention
+Implementa las funciones para proyectar input en queries, keys, values usando los pesos attention_query_weight, key_weight, value_weight y biases.
+
+Implementa el cálculo de atención escalada (scaled dot-product attention).
+
+Implementa la concatenación de cabezas y la capa densa posterior (attention_output_dense).
+
+Carga los pesos del primer bloque de atención (layer_0).
+
+Prueba la atención con datos dummy y verifica dimensiones.
+
+Día 5 — Feed-Forward y LayerNorm
+Implementa el bloque feed-forward (dos capas densas con activación GELU en medio).
+
+Carga pesos intermediate_dense y output_dense.
+
+Implementa la normalización LayerNorm (peso y bias).
+
+Integra la atención, feed-forward y normalizaciones en un bloque Transformer completo.
+
+Testea forward paso a paso con datos dummy.
+
+Día 6 — Apilar bloques Transformer y normalización final
+Implementa el apilamiento de 12 bloques Transformer (carga pesos para capas 0 a 11).
+
+Implementa la normalización final (vit_layernorm_weight y bias).
+
+Prueba forward completo en un batch pequeño dummy.
+
+Añade temporizadores para medir rendimiento inicial en CPU.
+
+Día 7 — Clasificador final y pruebas con datos reales
+Implementa la capa de clasificación (capa lineal final con pesos classifier_weight y classifier_bias).
+
+Usa el vector [CLS] para hacer la predicción final.
+
+Integra todo el pipeline forward: imagen → patches → transformer → clasificación.
+
+Realiza pruebas con vectores generados a partir de imágenes MNIST (preprocesadas a 224x224 y 3 canales).
+
+Documenta y prepara código para futuras optimizaciones GPU.
