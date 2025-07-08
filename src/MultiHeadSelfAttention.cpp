@@ -101,3 +101,67 @@ Matrix MultiHeadSelfAttention::forward(const Matrix& input) {
     return output;
 }
 
+// Versión CUDA optimizada del forward
+Matrix MultiHeadSelfAttention::forward_cuda(const Matrix& input) {
+    size_t seq_len = input.rows;
+    
+    // Preparar bias (transponer una sola vez)
+    Matrix Bq_t = Bq.transpose();
+    Matrix Bk_t = Bk.transpose();
+    Matrix Bv_t = Bv.transpose();
+    Matrix Bo_t = Bo.transpose();
+    
+    // 1. Linear projections con cuBLAS (más eficiente)
+    Matrix Q = input.cublas_multiply(Wq);
+    Matrix K = input.cublas_multiply(Wk);
+    Matrix V = input.cublas_multiply(Wv);
+    
+    // Agregar bias manualmente
+    for (size_t i = 0; i < Q.rows; ++i) {
+        for (size_t j = 0; j < Q.cols; ++j) {
+            Q(i, j) += Bq_t(j, 0);
+            K(i, j) += Bk_t(j, 0);
+            V(i, j) += Bv_t(j, 0);
+        }
+    }
+    
+    // 2. Procesar todas las cabezas en paralelo
+    std::vector<Matrix> head_outputs;
+    float scale = 1.0f / std::sqrt(static_cast<float>(head_dim));
+    
+    for (size_t h = 0; h < num_heads; ++h) {
+        Matrix Qh = Q.sliceCols(h * head_dim, (h + 1) * head_dim);  // (197 x 64)
+        Matrix Kh = K.sliceCols(h * head_dim, (h + 1) * head_dim);  // (197 x 64)
+        Matrix Vh = V.sliceCols(h * head_dim, (h + 1) * head_dim);  // (197 x 64)
+        
+        // Usar cuBLAS para multiplicación K^T
+        Matrix Kh_t = Kh.transpose();  // (64 x 197)
+        Matrix scores = Qh.cublas_multiply(Kh_t).cuda_scalar_multiply(scale);  // (197 x 197)
+        
+        // Softmax usando la función existente (podría optimizarse más)
+        Matrix probs = softmax(scores);  // (197 x 197)
+        
+        // Contexto final con cuBLAS
+        Matrix context = probs.cublas_multiply(Vh);  // (197 x 64)
+        head_outputs.push_back(context);
+    }
+    
+    // 3. Concatenar cabezas
+    Matrix concat(seq_len, model_dim);
+    for (size_t h = 0; h < num_heads; ++h) {
+        concat.setCols(h * head_dim, head_outputs[h]);
+    }
+    
+    // 4. Proyección final con cuBLAS
+    Matrix output = concat.cublas_multiply(Wo);
+    
+    // Agregar bias final
+    for (size_t i = 0; i < output.rows; ++i) {
+        for (size_t j = 0; j < output.cols; ++j) {
+            output(i, j) += Bo_t(j, 0);
+        }
+    }
+    
+    return output;
+}
+

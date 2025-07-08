@@ -5,7 +5,7 @@
 #ifndef MULTIHEADSELFATTENTION_H
 #define MULTIHEADSELFATTENTION_H
 
-#include "Matrix.h"
+#include "matrix.h"
 #include <string>
 class MultiHeadSelfAttention {
 private:
@@ -33,6 +33,9 @@ public:
     );
 
     Matrix forward(const Matrix& input); // input: (197 x 768)
+    
+    // Versión CUDA optimizada
+    Matrix forward_cuda(const Matrix& input); // input: (197 x 768)
 };
 
 #endif //MULTIHEADSELFATTENTION_H

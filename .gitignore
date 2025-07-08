@@ -1,0 +1,43 @@
+# Ejecutables
+google_vit
+google_vit_cuda
+ejemplo_cuda
+
+# Archivos de compilación
+build/
+*.o
+*.obj
+*.exe
+
+# Archivos temporales del sistema
+*.tmp
+*.temp
+*~
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de log
+*.log
+
+# Archivos de backup
+*.bak
+*.backup
+
+# Archivos de CUDA
+*.ptx
+*.cubin
+
+# Archivos de paquetes Debian
+*.deb
+
+# Archivos de instalación
+install_*
+
+# Archivos de script específicos
+compile.sh
