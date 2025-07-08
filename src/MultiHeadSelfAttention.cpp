@@ -4,7 +4,6 @@
 
 #include "../include/MultiHeadSelfAttention.h"
 #include <cmath>
-#include <cassert>
 #include <iostream>
 
 MultiHeadSelfAttention::MultiHeadSelfAttention(

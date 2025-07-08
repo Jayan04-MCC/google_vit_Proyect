@@ -38,7 +38,7 @@ public:
 
     [[nodiscard]] Matrix sliceCols(size_t start_col, size_t end_col) const;
     void setCols(size_t start_col, const Matrix& src);
-
+    [[nodiscard]] Matrix sliceRows(size_t start_row, size_t end_row) const;
 };
 
 

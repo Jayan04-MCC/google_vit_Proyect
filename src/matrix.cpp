@@ -200,6 +200,19 @@ void Matrix::setCols(size_t start_col, const Matrix& src) {
         }
     }
 }
+Matrix Matrix::sliceRows(size_t start_row, size_t end_row) const {
+    assert(start_row < end_row && end_row <= rows);
+    size_t new_rows = end_row - start_row;
+    Matrix result(new_rows, cols);
+
+    for (size_t i = 0; i < new_rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            result(i, j) = (*this)(start_row + i, j);
+        }
+    }
+    return result;
+}
+
 
 
 
