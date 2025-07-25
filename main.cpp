@@ -5,14 +5,15 @@
 #include "include/TransformerEncoderLayer.h"
 
 int main() {
+    //original 224x224
     Matrix patches = Matrix::fromCSV("C:/Users/JAYAN/CLionProjects/google-vit/patches_00001.csv",false); // (196 x 768)
-
+    // se redimensiona en parches de 16x16, por lo que quedan 196 parches de 14x14x3 = 196 x 768
     PatchEmbedder embedder(
         "C:/Users/JAYAN/CLionProjects/google-vit/pesos/vit_embeddings_patch_embeddings_projection_weight.csv",
         "C:/Users/JAYAN/CLionProjects/google-vit/pesos/vit_embeddings_patch_embeddings_projection_bias.csv"
     );
 
-    Matrix embedded = embedder.embed(patches);  // (196 x 768)
+    Matrix embedded = embedder.embed(patches); // (196 x 768)
 
     embedded.print(1, 5);  // Muestra 1ra fila, 5 columnas
     std::cout << "Filas y columnas de embedded: "<<std::endl;
@@ -60,4 +61,5 @@ int main() {
     std::cout << "Proceso completo de forward del ViT.\n";
 
     return 0;
+    
 }

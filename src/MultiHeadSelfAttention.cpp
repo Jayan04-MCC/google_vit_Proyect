@@ -99,5 +99,6 @@ Matrix MultiHeadSelfAttention::forward(const Matrix& input) {
     Bo = Bo.transpose();
     Matrix output = concat * Wo + Bo;  // (197 x 768)
     return output;
+
 }
 
