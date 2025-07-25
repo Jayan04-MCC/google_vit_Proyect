@@ -39,6 +39,14 @@ public:
     [[nodiscard]] Matrix sliceCols(size_t start_col, size_t end_col) const;
     void setCols(size_t start_col, const Matrix& src);
     [[nodiscard]] Matrix sliceRows(size_t start_row, size_t end_row) const;
+
+    // Funciones CUDA
+    Matrix cuda_add(const Matrix& other) const;
+    Matrix cuda_scalar_multiply(float scalar) const;
+    Matrix cuda_multiply(const Matrix& other) const;
+    Matrix cublas_multiply(const Matrix& other) const;
+
+   
 };
 
 
