@@ -4,7 +4,7 @@
 
 - Jayan Caceres
 - Luis Alberto Ccalluchi Lopez
-- [Nombre del integrante 2]
+- Henry Aron Yanqui Vera
 - [Nombre del integrante 3]
 
 ## Descripción del Proyecto
