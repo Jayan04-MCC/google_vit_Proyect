@@ -5,9 +5,7 @@
 #ifndef INPUTBUILDER_H
 #define INPUTBUILDER_H
 
-#endif //INPUTBUILDER_H
-
-#include "Matrix.h"
+#include "matrix.h"
 #include <string>
 
 class InputBuilder {
@@ -20,3 +18,5 @@ public:
 
     Matrix build(const Matrix& embedded_patches); // Devuelve input final 197x768
 };
+
+#endif //INPUTBUILDER_H

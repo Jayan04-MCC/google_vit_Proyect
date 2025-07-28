@@ -18,6 +18,9 @@ public:
 
     // Aplica el embedding a una matriz de parches (196 x 768)
     Matrix embed(const Matrix& patches);
+    
+    // Versión CUDA optimizada
+    Matrix embed_cuda(const Matrix& patches);
 };
 
 
