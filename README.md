@@ -11,8 +11,6 @@
 
 Este proyecto implementa un Vision Transformer (ViT) en dos lenguajes de programación:
 
-### Componente Python
-
 ## Instrucciones de Compilación
 
 1. Ir a: https://drive.google.com/file/d/1ft1mArVzup6VGvXNs0jtV0cTTR2oW5qZ/view?usp=sharing
