@@ -13,6 +13,6 @@ Este proyecto implementa un Vision Transformer (ViT) en dos lenguajes de program
 
 ## Instrucciones de Compilación
 
-1. Ir a: https://drive.google.com/file/d/1ft1mArVzup6VGvXNs0jtV0cTTR2oW5qZ/view?usp=sharing
+1. Ir a: https://colab.research.google.com/drive/1Q2yjc4wctAgPtGC6fkqCRqo05ycas0ID?usp=sharing
 2. Hacer clic en "Abrir con Google Colaboratory"
 3. Hacer clic en "Ejecutar todo" o presionar Ctrl+F9
