@@ -5,7 +5,7 @@
 - Jayan Caceres
 - Luis Alberto Ccalluchi Lopez
 - Henry Aron Yanqui Vera
-- [Nombre del integrante 3]
+- Antony Aroni Jarata
 
 ## Descripción del Proyecto
 
